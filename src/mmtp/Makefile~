@@ -1,0 +1,21 @@
+TARGET = client
+OBJS = DList.o Mlist.o client.o getfile.o ini.o mmt.o ringq.o send.o mkdir.0 ../mpu/stream.o ../mpu/mp4.o
+CFLAGS = -I../../../ -D_TEST
+LDFLAGS = -lm -lpthread
+
+all: $(TARGET)
+
+$(TARGET): $(OBJS)
+	$(CC) -o $@ $(OBJS) $(LDFLAGS)
+
+%.o:%.c
+	$(CC) -g $(CFLAGS) -o $@ -c $<
+
+%.o:%.cc
+	$(CC) -g $(CFLAGS) -o $@ -c $<
+	
+clean:
+	@rm -f $(OBJS)
+
+distclean: clean
+	@rm -f $(TARGET)
